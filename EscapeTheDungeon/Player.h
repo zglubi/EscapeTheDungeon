@@ -8,7 +8,7 @@
 class Player : public Entity
 {
 private:
-    int hp;
+    float hp;
     int hpMax;
     float speed;
     int frame;
@@ -20,13 +20,13 @@ public:
     ~Player();
 
     // Getters
-    int getHp() const;
+    float getHp() const;
     int getHpMax() const;
     float getSpeed() const;
     int getFrame() const;
 
     // Setters
-    void setHp(int hp);
+    void setHp(float hp);
     void setHpMax(int hpMax);
     void setSpeed(float speed);
     void setFrame(int frame);

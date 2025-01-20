@@ -140,16 +140,24 @@
     <ClCompile Include="Chaser.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Objet.cpp" />
     <ClCompile Include="Patrolling.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Potion.cpp" />
+    <ClCompile Include="RandomNumber.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chaser.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Patrolling.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Potion.h" />
+    <ClInclude Include="RandomNumber.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

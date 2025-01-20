@@ -3,13 +3,13 @@
 #include "Player.h"
 #include "Patrolling.h"
 #include "Chaser.h"
+#include "EntityManager.h"
 using namespace sf;
 using namespace std;
 
-
-
 RenderWindow window(VideoMode(1440, 1080), "Escape the Dungeon");
 
+EntityManager* manager = EntityManager::getInstance();
 
 int main()
 {
@@ -20,20 +20,26 @@ int main()
 		return -1;
 	}
 
-	Player player;
+	manager->createPlayer();
 
 	vector<char> patern = { 'U', 'U', 'U', 'R',
 		'R', 'D', 'D', 'D', 'L', 'L'};
 
-	Patrolling pat(100, 50, patern);
-	pat.getSprite().setPosition(Vector2f(600, 500));
+	manager->createPatrolling(100, 50, patern);
 
-	Chaser chase(100, 50);
+	manager->createChaser(100, 50);
 
+	Clock clock;
+	float deltaTime;
 
 	window.setFramerateLimit(60);
 	while (window.isOpen())
 	{
+		if (!manager->isPlayerAlive())
+			window.close();
+		
+		deltaTime = clock.restart().asSeconds();
+		
 		Event event;
 
 		while (window.pollEvent(event))
@@ -44,16 +50,14 @@ int main()
 			}
 		}
 
-		player.update(0.016f);
-		pat.update(0.016f);
-		chase.moveUpdate(player);
-		chase.update(0.016f);
+
+		manager->update(deltaTime);
+		manager->collisions();
+
 
 		// Drawage toi meme tu sais
 		window.clear();
-		player.draw(window);
-		pat.draw(window);
-		chase.draw(window);
+		manager->draw(window);
 		window.display();
 	}
 	

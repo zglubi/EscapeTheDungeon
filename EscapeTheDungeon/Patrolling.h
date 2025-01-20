@@ -15,7 +15,7 @@ private:
 
 public:
     // Constructor and Destructor
-    Patrolling(const sf::Texture& t, int h, float s, std::vector<char> p);
+    // Patrolling(const sf::Texture& t, int h, float s, std::vector<char> p);
     Patrolling(int h, float s, std::vector<char> p);
     ~Patrolling();
 

@@ -2,14 +2,15 @@
 #include "Chaser.h"
 
 // Constructor
-Chaser::Chaser(const sf::Texture& t, int h, float s)
-    : Enemy(t, h, s), moveX(0), moveY(0)
-{
-}
+//Chaser::Chaser(const sf::Texture& t, int h, float s)
+//    : Enemy(t, h, s), moveX(0), moveY(0)
+//{
+//}
 
 Chaser::Chaser(int h, float s)
     : Enemy(h, s), moveX(0), moveY(0)
 {
+    this->getSprite().setPosition(randomNumber(0, 1200), randomNumber(0, 800));
 }
 
 // Destructor
@@ -18,18 +19,18 @@ Chaser::~Chaser()
 }
 
 // Update movement direction based on Player's position
-void Chaser::moveUpdate(Player& player)
+void Chaser::moveUpdate(std::shared_ptr<Player> player)
 {
-    if (player.getSprite().getPosition().x > this->getSprite().getPosition().x)
+    if (player->getSprite().getPosition().x > this->getSprite().getPosition().x)
         moveX = 1;
-    else if (player.getSprite().getPosition().x < this->getSprite().getPosition().x)
+    else if (player->getSprite().getPosition().x < this->getSprite().getPosition().x)
         moveX = -1;
     else
         moveX = 0;
 
-    if (player.getSprite().getPosition().y > this->getSprite().getPosition().y)
+    if (player->getSprite().getPosition().y > this->getSprite().getPosition().y)
         moveY = 1;
-    else if (player.getSprite().getPosition().y < this->getSprite().getPosition().y)
+    else if (player->getSprite().getPosition().y < this->getSprite().getPosition().y)
         moveY = -1;
     else
         moveY = 0;

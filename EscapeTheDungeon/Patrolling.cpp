@@ -2,12 +2,14 @@
 #include "Patrolling.h"
 
 // Constructor
-Patrolling::Patrolling(const sf::Texture& t, int h, float s, std::vector<char> p)
-    : Enemy(t, h, s), patern(p), paternNum(0), paternPhase(0) {
-}
+//Patrolling::Patrolling(const sf::Texture& t, int h, float s, std::vector<char> p)
+//    : Enemy(t, h, s), patern(p), paternNum(0), paternPhase(0) {
+//}
 
 Patrolling::Patrolling(int h, float s, std::vector<char> p)
-    : Enemy(h, s), patern(p), paternNum(0), paternPhase(0)  {
+    : Enemy(h, s), patern(p), paternNum(0), paternPhase(0)  
+{
+    this->getSprite().setPosition(randomNumber(600, 1200), randomNumber(400, 800));
 }
 
 

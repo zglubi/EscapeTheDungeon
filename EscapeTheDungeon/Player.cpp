@@ -17,13 +17,13 @@ Player::Player() : Entity(sf::Color::Green, sf::Vector2f(50, 75))
 Player::~Player() {}
 
 // Getters
-int Player::getHp() const { return hp; }
+float Player::getHp() const { return hp; }
 int Player::getHpMax() const { return hpMax; }
 float Player::getSpeed() const { return speed; }
 int Player::getFrame() const { return frame; }
 
 // Setters
-void Player::setHp(int hp) { this->hp = hp; }
+void Player::setHp(float hp) { this->hp = hp; }
 void Player::setHpMax(int hpMax) { this->hpMax = hpMax; }
 void Player::setSpeed(float speed) { this->speed = speed; }
 void Player::setFrame(int frame) { this->frame = frame; }

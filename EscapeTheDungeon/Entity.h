@@ -3,6 +3,7 @@
 #define ENTITY_H
 
 #include <SFML/Graphics.hpp>
+#include "RandomNumber.h"
 using namespace sf;
 
 class Entity
@@ -16,7 +17,7 @@ public:
     Entity(const Texture& t);
 
     // Constructeur par défaut
-    Entity(const sf::Color& color = sf::Color::Green, const sf::Vector2f& size = sf::Vector2f(50.f, 75.f));
+    Entity(const sf::Color& color = sf::Color::Blue, const sf::Vector2f& size = sf::Vector2f(50.f, 75.f));
 
     // Destructor
     virtual ~Entity();

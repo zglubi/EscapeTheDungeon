@@ -14,12 +14,12 @@ private:
 
 public:
     // Constructor and Destructor
-    Chaser(const sf::Texture& t, int h, float s);
+    //Chaser(const sf::Texture& t, int h, float s);
     Chaser(int h, float s);
     ~Chaser();
 
     // Methods
-    void moveUpdate(Player& player);
+    void moveUpdate(std::shared_ptr<Player> player);
     void update(float deltaTime) override;
 };
 
