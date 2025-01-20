@@ -16,6 +16,7 @@ private:
 public:
     // Constructor and Destructor
     Player(const sf::Texture& t);
+    Player();
     ~Player();
 
     // Getters

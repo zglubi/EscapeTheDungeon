@@ -15,6 +15,9 @@ public:
     // Constructor
     Entity(const Texture& t);
 
+    // Constructeur par défaut
+    Entity(const sf::Color& color = sf::Color::Green, const sf::Vector2f& size = sf::Vector2f(50.f, 75.f));
+
     // Destructor
     virtual ~Entity();
 

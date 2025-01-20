@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Player.h"
+#include "Patrolling.h"
+#include "Chaser.h"
 using namespace sf;
 using namespace std;
 
@@ -18,9 +20,18 @@ int main()
 		return -1;
 	}
 
-	Player player(pText);
+	Player player;
+
+	vector<char> patern = { 'U', 'U', 'U', 'R',
+		'R', 'D', 'D', 'D', 'L', 'L'};
+
+	Patrolling pat(100, 50, patern);
+	pat.getSprite().setPosition(Vector2f(600, 500));
+
+	Chaser chase(100, 50);
 
 
+	window.setFramerateLimit(60);
 	while (window.isOpen())
 	{
 		Event event;
@@ -34,10 +45,15 @@ int main()
 		}
 
 		player.update(0.016f);
+		pat.update(0.016f);
+		chase.moveUpdate(player);
+		chase.update(0.016f);
 
 		// Drawage toi meme tu sais
 		window.clear();
 		player.draw(window);
+		pat.draw(window);
+		chase.draw(window);
 		window.display();
 	}
 	

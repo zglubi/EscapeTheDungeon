@@ -2,7 +2,13 @@
 #include "Player.h"
 
 // Constructor
-Player::Player(const sf::Texture& t) : Entity(t), hp(100), hpMax(100), speed(20.0f), frame(0)
+Player::Player(const sf::Texture& t) : Entity(t), hp(100), hpMax(100), speed(200.0f), frame(0)
+{
+    this->getSprite().setPosition(Vector2f(200, 200));
+}
+
+Player::Player() : Entity(sf::Color::Green, sf::Vector2f(50, 75))
+, hp(100), hpMax(100), speed(200.0f), frame(0)
 {
     this->getSprite().setPosition(Vector2f(200, 200));
 }
