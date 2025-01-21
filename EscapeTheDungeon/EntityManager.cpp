@@ -17,7 +17,13 @@ EntityManager* EntityManager::getInstance() {
 
 void EntityManager::start()
 {
-    // Mettre les potions
+    shared_ptr<Potion> potion = make_shared<Potion>();
+    entities.push_back(potion);
+    objects.push_back(potion);
+
+    shared_ptr<Key> key = make_shared<Key>();
+    entities.push_back(key);
+    objects.push_back(key);
 }
 
 //Méthode pour vérifier si le joueur est en vie
@@ -30,7 +36,8 @@ bool EntityManager::isPlayerAlive()
 }
 
 // Méthode pour créer un joueur
-void EntityManager::createPlayer(string path) {
+void EntityManager::createPlayer(string path) 
+{
     if (path == "") {
         shared_ptr<Player> player = make_shared<Player>();
         entities.push_back(player);
@@ -72,6 +79,23 @@ void EntityManager::update(float deltaTime) {
 
     for (auto entity : entities) {
         entity->update(deltaTime);
+    }
+
+    shared_ptr<Object> objToDestroy = nullptr;
+
+    for (auto object : objects)
+    {
+        if (object->getSprite().getGlobalBounds().intersects(players[0]->getSprite().getGlobalBounds()))
+        {
+            object->interact(players[0]);
+            objToDestroy = object;
+        }
+    }
+
+    if (objToDestroy)
+    {
+        entities.erase(std::remove(entities.begin(), entities.end(), objToDestroy), entities.end());
+        objects.erase(std::remove(objects.begin(), objects.end(), objToDestroy), objects.end());
     }
 }
 

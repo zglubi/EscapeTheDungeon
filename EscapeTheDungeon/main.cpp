@@ -4,12 +4,15 @@
 #include "Patrolling.h"
 #include "Chaser.h"
 #include "EntityManager.h"
+#include "Map.h"
 using namespace sf;
 using namespace std;
 
 RenderWindow window(VideoMode(1440, 1080), "Escape the Dungeon");
 
 EntityManager* manager = EntityManager::getInstance();
+
+Map dungeonMap;
 
 int main()
 {
@@ -33,6 +36,7 @@ int main()
 	float deltaTime;
 
 	window.setFramerateLimit(60);
+	manager->start();
 	while (window.isOpen())
 	{
 		if (!manager->isPlayerAlive())
@@ -57,6 +61,7 @@ int main()
 
 		// Drawage toi meme tu sais
 		window.clear();
+		dungeonMap.draw(window);
 		manager->draw(window);
 		window.display();
 	}

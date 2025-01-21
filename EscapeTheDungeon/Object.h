@@ -14,7 +14,6 @@ public:
     Object();  // Constructeur
     virtual ~Object();  // Destructeur
 
-    // Méthode virtuelle pure pour l'interaction avec un joueur
     virtual void interact(shared_ptr<Player> player) = 0;
 };
 

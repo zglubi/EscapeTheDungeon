@@ -8,6 +8,8 @@
 #include "Player.h"
 #include "Patrolling.h"
 #include "Chaser.h"
+#include "Potion.h"
+#include "Key.h"
 
 using namespace sf;
 using namespace std;
@@ -18,10 +20,15 @@ private:
     static EntityManager* instance;  // Instance unique
 
     vector<shared_ptr<Entity>> entities;    // Liste de toutes les entités
+
     vector<shared_ptr<Player>> players;     // Liste des joueurs
+
     vector<shared_ptr<Enemy>> enemies;      // Liste des ennemis
     vector<shared_ptr<Patrolling>> patrollings;  // Liste des patrouilleurs
     vector<shared_ptr<Chaser>> chasers;     // Liste des chasers
+
+    vector<shared_ptr<Object>> objects;
+
 
     // Constructeur privé pour empêcher la création d'instances extérieures
     EntityManager();

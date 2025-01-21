@@ -1,21 +1,31 @@
 #include "Potion.h"
 
-Potion::Potion() : Object(), speedUpgrade(50) {
-    // Initialisation spécifique si nécessaire
+Potion::Potion() : Object(), speedUpgrade(50) 
+{
+    this->getSprite().setPosition(randomNumber(600, 1200), randomNumber(400, 800));
+    count = 0;
 }
 
-Potion::~Potion() {
+Potion::~Potion() 
+{
     // Libération des ressources spécifiques si nécessaire
 }
 
-void Potion::interact(shared_ptr<Player> player) {
-    // Vérifie si le joueur entre en collision avec la potion
-    if (this->getSprite().getGlobalBounds().intersects(player->getSprite().getGlobalBounds())) {
-        // Si collision, améliore la vitesse du joueur
-        player->setSpeed(player->getSpeed() + speedUpgrade);
-        cout << "Potion picked up! Speed increased by " << speedUpgrade << endl;
-    }
+void Potion::interact(shared_ptr<Player> player) 
+{
 
-    // Appel explicite du destructeur de la potion (généralement déconseillé)
+    player->resetClock();
+    cout << "Potion picked up! Speed increased by " << speedUpgrade << endl;
+
     // this->~Potion();  // Il est préférable de ne pas faire cela.
+}
+
+void Potion::draw(RenderWindow& window)
+{
+    window.draw(this->getSprite());
+}
+
+void Potion::update(float deltaTime)
+{
+    count++;
 }

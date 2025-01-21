@@ -1,4 +1,4 @@
-#include "Objects.h"
+#include "Object.h"
 
 // Constructeur
 Object::Object() : Entity(sf::Color::Blue, sf::Vector2f(25, 25))

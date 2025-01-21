@@ -4,12 +4,16 @@
 // Constructor
 Player::Player(const sf::Texture& t) : Entity(t), hp(100), hpMax(100), speed(200.0f), frame(0)
 {
+    clockActive = false;
+    keyNum = 0;
     this->getSprite().setPosition(Vector2f(200, 200));
 }
 
 Player::Player() : Entity(sf::Color::Green, sf::Vector2f(50, 75))
 , hp(100), hpMax(100), speed(200.0f), frame(0)
 {
+    clockActive = false;
+    keyNum = 0;
     this->getSprite().setPosition(Vector2f(200, 200));
 }
 
@@ -27,6 +31,7 @@ void Player::setHp(float hp) { this->hp = hp; }
 void Player::setHpMax(int hpMax) { this->hpMax = hpMax; }
 void Player::setSpeed(float speed) { this->speed = speed; }
 void Player::setFrame(int frame) { this->frame = frame; }
+void Player::addKey() { keyNum++; }
 
 // Handle input
 void Player::handleInput(float deltaTime)
@@ -52,6 +57,14 @@ void Player::handleInput(float deltaTime)
 // Update method
 void Player::update(float deltaTime)
 {
+    if (speedClock.getElapsedTime().asSeconds() < 5 && clockActive)
+    {
+        speed = 300;
+    }
+    else
+    {
+        speed = 200;
+    }
     handleInput(deltaTime);
     frame++;
 }
@@ -60,4 +73,11 @@ void Player::update(float deltaTime)
 void Player::draw(sf::RenderWindow& window)
 {
     window.draw(this->getSprite());
+}
+
+void Player::resetClock()
+{
+    if (!clockActive)
+        clockActive = true;
+    speedClock.restart();
 }
