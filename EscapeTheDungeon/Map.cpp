@@ -63,9 +63,9 @@ Map::Map()
 
     map =
     {
-        {'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'D', 'D', 'D', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'C', 'W', 'W', 'W', 'W', 'W','C', 'W', 'W','W', 'W', 'F', 'F', 'F', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W','W', 'W', 'W','W', 'W', 'W', 'R'},
-        {'F', 'S', 'F', 'F', 'F', 'F', 'F','S', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'S'},
+        {'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'D', 'D', 'D', 'D', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
+        {'F', 'C', 'W', 'W', 'W', 'W', 'W','C', 'W', 'W','W', 'W', 'D', 'D', 'D', 'D', 'W', 'W', 'W', 'W', 'W', 'W', 'W','W', 'W', 'W','W', 'W', 'W', 'R'},
+        {'F', 'S', 'F', 'F', 'F', 'F', 'F','S', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'S'},
         {'F', 'S', 'F', 'F', 'F', 'C', 'o','C', 'W', 'W','R', 'F', 'C', 'W', 'W', 'W', 'W', 'r', 'F', 'F', 'C', 'W', 'W','W', 'W', 'R','F', 'F', 'F', 'S'},
         {'F', 'S', 'F', 'F', 'F', 'S', 'F','S', 'F', 'F','S', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'r', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
         {'F', 'S', 'F', 'C', 'W', 'r', 'F','c', 'W', 'W','r', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
@@ -127,17 +127,23 @@ void Map::draw(RenderWindow& window)
                 window.draw(wallCornerSprite);
                 break;
             case 'D':
-                doorSprite.setPosition(Vector2f(j * 48, i * 48));
-                window.draw(doorSprite);
-                j += 2;
+                if (map[i + 1][j] == 'D')
+                {
+                    doorSprite.setPosition(Vector2f(j * 48, i * 48));
+                    window.draw(doorSprite);
+                }
+                j += 3;
                 break;
             case 'O':
-                doorLeftSprite.setPosition(Vector2f(j * 48, i * 48));
-                doorOpenSprite.setPosition(Vector2f(j * 48 + 48, i * 48));
-                doorRightSprite.setPosition(Vector2f(j * 48 + 144, i * 48));
-                window.draw(doorLeftSprite);
-                window.draw(doorOpenSprite);
-                window.draw(doorRightSprite);
+                if (map[i + 1][j] == 'O')
+                {
+                    doorLeftSprite.setPosition(Vector2f((j - 1) * 48, i * 48));
+                    doorOpenSprite.setPosition(Vector2f(j * 48, i * 48));
+                    doorRightSprite.setPosition(Vector2f(j * 48 + 96, i * 48));
+                    window.draw(doorLeftSprite);
+                    window.draw(doorOpenSprite);
+                    window.draw(doorRightSprite);
+                }
                 j += 2;
                 break;
             case 'd':

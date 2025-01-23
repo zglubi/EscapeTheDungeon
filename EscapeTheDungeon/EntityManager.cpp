@@ -27,11 +27,20 @@ EntityManager::EntityManager()
     {
         cout << "tileset introuvable" << endl;
     }
+
+	if (!winBgTexture.loadFromFile("Assets/Background/win.png"))
+	{
+		cout << "tileset introuvable" << endl;
+	}
+	winBg.setTexture(winBgTexture);
+	winBg.setScale(2.3, 2.8);
 }
 
 // M?thode statique pour acc?der ? l'instance unique
-EntityManager* EntityManager::getInstance() {
-    if (instance == nullptr) {
+EntityManager* EntityManager::getInstance() 
+{
+    if (instance == nullptr) 
+    {
         instance = new EntityManager();
     }
     return instance;
@@ -44,10 +53,10 @@ void EntityManager::start(vector<vector<char>> map)
     while (potionsToPlace > 0)
     {
         Vector2f position = { static_cast<float>(randomNumber(96, 1338)), static_cast<float>(randomNumber(96, 950)) };
-        Vector2i section1 = { static_cast<int>(position.x / 48), static_cast<int>(position.y / 48) };
+        Vector2i section1 = { static_cast<int>(position.x / 48.0), static_cast<int>(position.y / 48.0) };
         Vector2i section2 = { static_cast<int>((position.x + 23) / 48), static_cast<int>((position.y + 25) / 48)};
 
-        if (map[section1.x][section1.y] == 'F' && map[section2.x][section2.y] == 'F')
+        if (map[section1.y][section1.x] == 'F' && map[section2.y][section2.x] == 'F')
         {
             shared_ptr<Potion> potion = make_shared<Potion>(potionTexture, position);
             entities.push_back(potion);
@@ -66,12 +75,15 @@ void EntityManager::start(vector<vector<char>> map)
 }
 
 //M?thode pour v?rifier si le joueur est en vie
-bool EntityManager::isPlayerAlive()
+bool EntityManager::isPlayerAlive(bool& isRunning)
 {
     if (players[0]->getHp() > 0)
         return true;
     else
-        return false;
+    {
+		isRunning = false;
+		return false;
+    }
 }
 
 // M?thode pour cr?er un joueur
@@ -102,7 +114,7 @@ void EntityManager::createChaser(Vector2f startPos, const int h, const float s) 
 // M?thode pour mettre ? jour toutes les entit?s
 void EntityManager::update(float deltaTime, vector<vector<char>>& map) {
     for (auto chaser : chasers) {
-        chaser->moveUpdate(players[0]);  // Exemple : le premier joueur
+        chaser->moveUpdate(players[0], map);  // Exemple : le premier joueur
     }
 
     for (auto entity : entities) {
@@ -167,4 +179,30 @@ void EntityManager::deleteInstance()
 {
     delete instance;
     instance = nullptr;
+}
+
+void EntityManager::winCheck(bool& isRunning)
+{
+	cout << players[0]->getSprite().getPosition().y << endl;
+    
+    if (players[0]->getSprite().getPosition().y < 60)
+    {
+		cout << "You win!" << endl;
+        isRunning = false;
+    }
+}
+
+void EntityManager::winScreen(RenderWindow& window)
+{
+    if (players[0]->getHp() > 0)
+    {
+		window.clear();
+        window.draw(winBg);
+		window.display();
+    }
+
+    else
+    {
+        window.close();
+    }
 }

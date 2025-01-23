@@ -34,6 +34,9 @@ private:
     Texture potionTexture;
     Texture keyTexture;
 
+	Texture winBgTexture;
+	Sprite winBg;
+
 
     // Constructeur priv? pour emp?cher la cr?ation d'instances ext?rieures
     EntityManager();
@@ -45,7 +48,7 @@ public:
     void start(vector<vector<char>> map);
 
     //M?thode pour v?rifier si le joueur est en vie
-    bool isPlayerAlive();
+    bool isPlayerAlive(bool& isRunning);
 
     // M?thode pour cr?er un joueur
     void createPlayer(string path = "");
@@ -70,6 +73,10 @@ public:
 
     // M?thode pour supprimer l'instance de EntityManager
     static void deleteInstance();
+
+	void winCheck(bool& isRunning);
+
+	void winScreen(RenderWindow& window);
 };
 
 #endif // ENTITYMANAGER_H#pragma once

@@ -11,7 +11,6 @@ Key::~Key() {}
 void Key::interact(std::shared_ptr<Player> player)
 {
     player->addKey();
-    std::cout << "key grabbed";
 }
 
 void Key::draw(sf::RenderWindow& window)

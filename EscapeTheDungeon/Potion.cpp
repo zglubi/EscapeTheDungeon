@@ -16,9 +16,6 @@ void Potion::interact(shared_ptr<Player> player)
 {
 
     player->resetClock();
-    cout << "Potion picked up! Speed increased by " << speedUpgrade << endl;
-
-    // this->~Potion();  // Il est pr?f?rable de ne pas faire cela.
 }
 
 void Potion::draw(RenderWindow& window)

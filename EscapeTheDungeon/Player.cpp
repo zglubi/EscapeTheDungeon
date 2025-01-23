@@ -5,7 +5,7 @@
 Player::Player(const sf::Texture& t, Vector2f startPos) : Entity(t, startPos), hp(100), hpMax(100), speed(200.0f), frame(0)
 {
     clockActive = false;
-    keyNum = 10;
+    keyNum = 0;
     scale = { 1.7, 1.7 };
     this->getSprite().setTextureRect(IntRect(128, 74, 15, 21));
     this->getSprite().setScale(scale);
@@ -55,19 +55,37 @@ void Player::handleInput(float deltaTime, vector<vector<char>>& map)
             this->getSprite().setPosition(Vector2f(this->getSprite().getPosition().x, (sectionLeft.y + 1) * 48 + this->getSprite().getGlobalBounds().height / 2));
         }
 
-        else if ((map[sectionMid.y][sectionMid.x] == 'D' || map[sectionMid.y][sectionMid.x] == 'd') && keyNum > 0)
+        else if ((((map[sectionMid.y][sectionMid.x] == 'D' && map[sectionMid.y][sectionMid.x - 1] == 'D') && map[sectionMid.y][sectionMid.x + 1] == 'D') || map[sectionMid.y][sectionMid.x] == 'd') && keyNum > 0)
         {
-            cout << "ouverture de la porte" << endl;
             keyNum--;
 
-            if (map[sectionMid.y][sectionMid.x] == 'D') {
-                map[sectionMid.y][sectionMid.x - 1] = 'O';
+            if (map[sectionMid.y][sectionMid.x] == 'd') 
+            {
+                map[sectionMid.y][sectionMid.x] = 'o';
+            }
+            else if (map[sectionMid.y][sectionMid.x + 2] == 'D')
+            {
+                map[sectionMid.y - 1][sectionMid.x - 1] = 'F';
+                map[sectionMid.y - 1][sectionMid.x] = 'O';
+                map[sectionMid.y - 1][sectionMid.x + 1] = 'O';
+                map[sectionMid.y - 1][sectionMid.x + 2] = 'F';
+
+                map[sectionMid.y][sectionMid.x - 1] = 'W';
                 map[sectionMid.y][sectionMid.x] = 'O';
                 map[sectionMid.y][sectionMid.x + 1] = 'O';
+                map[sectionMid.y][sectionMid.x + 2] = 'W';
             }
             else
             {
-                map[sectionMid.y][sectionMid.x] = 'o';
+                map[sectionMid.y - 1][sectionMid.x - 2] = 'F';
+                map[sectionMid.y - 1][sectionMid.x - 1] = 'O';
+                map[sectionMid.y - 1][sectionMid.x] = 'O';
+                map[sectionMid.y - 1][sectionMid.x + 1] = 'F';
+
+                map[sectionMid.y][sectionMid.x - 2] = 'W';
+                map[sectionMid.y][sectionMid.x - 1] = 'O';
+                map[sectionMid.y][sectionMid.x] = 'O';
+                map[sectionMid.y][sectionMid.x + 1] = 'W';
             }
         }
 

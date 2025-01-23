@@ -1,10 +1,10 @@
-// Chaser.h
 #ifndef CHASER_H
 #define CHASER_H
 
-#include <SFML/Graphics.hpp>
 #include "Enemy.h"
 #include "Player.h"
+#include <memory>
+#include <vector>
 
 class Chaser : public Enemy
 {
@@ -14,14 +14,19 @@ private:
     int frame;
     Vector2f scale;
 
+    std::vector<Vector2f> findPath(Vector2f start, Vector2f goal, const std::vector<std::vector<char>>& map);
+
 public:
-    // Constructor and Destructor
+    // Constructor
     Chaser(const sf::Texture& t, Vector2f startPos, int h, float s);
-    Chaser(int h, float s);
+
+    // Destructor
     ~Chaser();
 
-    // Methods
-    void moveUpdate(std::shared_ptr<Player> player);
+    // Update movement direction based on Player's position
+    void moveUpdate(std::shared_ptr<Player> player, const std::vector<std::vector<char>>& map);
+
+    // Update position based on calculated direction
     void update(float deltaTime) override;
 };
 
