@@ -1,23 +1,24 @@
 #include "Potion.h"
 
-Potion::Potion() : Object(), speedUpgrade(50) 
+Potion::Potion(Texture t, Vector2f startPos) : Object(t, startPos), speedUpgrade(50)
 {
-    this->getSprite().setPosition(randomNumber(600, 1200), randomNumber(400, 800));
+    this->getSprite().setTextureRect(IntRect(307, 339, 9, 10));
+    this->getSprite().setScale(Vector2f(2.5, 2.5));
     count = 0;
 }
 
-Potion::~Potion() 
+Potion::~Potion()
 {
-    // Libération des ressources spécifiques si nécessaire
+    // Lib?ration des ressources sp?cifiques si n?cessaire
 }
 
-void Potion::interact(shared_ptr<Player> player) 
+void Potion::interact(shared_ptr<Player> player)
 {
 
     player->resetClock();
     cout << "Potion picked up! Speed increased by " << speedUpgrade << endl;
 
-    // this->~Potion();  // Il est préférable de ne pas faire cela.
+    // this->~Potion();  // Il est pr?f?rable de ne pas faire cela.
 }
 
 void Potion::draw(RenderWindow& window)

@@ -14,7 +14,7 @@ private:
 
 public:
     // Constructor and Destructor
-    Enemy(const sf::Texture& t, int h, float s);
+    Enemy(const sf::Texture& t, Vector2f startPos, int h, float s);
     Enemy(int h, float s);
     ~Enemy();
 

@@ -2,12 +2,34 @@
 
 EntityManager* EntityManager::instance = nullptr;
 
-// Constructeur privé
-EntityManager::EntityManager() {
-    // Constructeur privé pour initialiser les valeurs si nécessaire
+// Constructeur priv?
+EntityManager::EntityManager()
+{
+    if (!playerTexture.loadFromFile("Assets/Tileset/Tileset.png"))
+    {
+        cout << "tileset introuvable" << endl;
+    }
+
+    if (!patrollingTexture.loadFromFile("Assets/Tileset/Tileset.png"))
+    {
+        cout << "tileset introuvable" << endl;
+    }
+    if (!chaserTexture.loadFromFile("Assets/Tileset/Tileset.png"))
+    {
+        cout << "tileset introuvable" << endl;
+    }
+
+    if (!potionTexture.loadFromFile("Assets/Tileset/Tileset.png"))
+    {
+        cout << "tileset introuvable" << endl;
+    }
+    if (!keyTexture.loadFromFile("Assets/Tileset/key.png"))
+    {
+        cout << "tileset introuvable" << endl;
+    }
 }
 
-// Méthode statique pour accéder à l'instance unique
+// M?thode statique pour acc?der ? l'instance unique
 EntityManager* EntityManager::getInstance() {
     if (instance == nullptr) {
         instance = new EntityManager();
@@ -15,18 +37,35 @@ EntityManager* EntityManager::getInstance() {
     return instance;
 }
 
-void EntityManager::start()
+void EntityManager::start(vector<vector<char>> map)
 {
-    shared_ptr<Potion> potion = make_shared<Potion>();
-    entities.push_back(potion);
-    objects.push_back(potion);
+    int potionsToPlace = 3;
 
-    shared_ptr<Key> key = make_shared<Key>();
+    while (potionsToPlace > 0)
+    {
+        Vector2f position = { static_cast<float>(randomNumber(96, 1338)), static_cast<float>(randomNumber(96, 950)) };
+        Vector2i section1 = { static_cast<int>(position.x / 48), static_cast<int>(position.y / 48) };
+        Vector2i section2 = { static_cast<int>((position.x + 23) / 48), static_cast<int>((position.y + 25) / 48)};
+
+        if (map[section1.x][section1.y] == 'F' && map[section2.x][section2.y] == 'F')
+        {
+            shared_ptr<Potion> potion = make_shared<Potion>(potionTexture, position);
+            entities.push_back(potion);
+            objects.push_back(potion);
+            potionsToPlace--;
+        }
+    }
+
+    shared_ptr<Key> key = make_shared<Key>(keyTexture, Vector2f(1000, 800));
     entities.push_back(key);
     objects.push_back(key);
+
+    shared_ptr<Key> key1 = make_shared<Key>(keyTexture, Vector2f(250, 450));
+    entities.push_back(key1);
+    objects.push_back(key1);
 }
 
-//Méthode pour vérifier si le joueur est en vie
+//M?thode pour v?rifier si le joueur est en vie
 bool EntityManager::isPlayerAlive()
 {
     if (players[0]->getHp() > 0)
@@ -35,44 +74,33 @@ bool EntityManager::isPlayerAlive()
         return false;
 }
 
-// Méthode pour créer un joueur
-void EntityManager::createPlayer(string path) 
+// M?thode pour cr?er un joueur
+void EntityManager::createPlayer(string path)
 {
-    if (path == "") {
-        shared_ptr<Player> player = make_shared<Player>();
-        entities.push_back(player);
-        players.push_back(player);
-    }
-    else {
-        Texture texture;
-        if (!texture.loadFromFile(path)) {
-            cout << "sprite player introuvable" << endl;
-        }
-
-        shared_ptr<Player> player = make_shared<Player>();
-        entities.push_back(player);
-        players.push_back(player);
-    }
+    shared_ptr<Player> player = make_shared<Player>(playerTexture, Vector2f(500, 800));
+    entities.push_back(player);
+    players.push_back(player);
 }
 
-// Méthode pour créer un patrouilleur
-void EntityManager::createPatrolling(const int h, const float s, const vector<char> p) {
-    shared_ptr<Patrolling> patrolling = make_shared<Patrolling>(h, s, p);
+// M?thode pour cr?er un patrouilleur
+void EntityManager::createPatrolling(Vector2f startPos, const int h, const float s, const vector<char> p)
+{
+    shared_ptr<Patrolling> patrolling = make_shared<Patrolling>(patrollingTexture, startPos, h, s, p);
     entities.push_back(patrolling);
     enemies.push_back(patrolling);
     patrollings.push_back(patrolling);
 }
 
-// Méthode pour créer un chaser
-void EntityManager::createChaser(const int h, const float s) {
-    shared_ptr<Chaser> chaser = make_shared<Chaser>(h, s);
+// M?thode pour cr?er un chaser
+void EntityManager::createChaser(Vector2f startPos, const int h, const float s) {
+    shared_ptr<Chaser> chaser = make_shared<Chaser>(chaserTexture, startPos, h, s);
     entities.push_back(chaser);
     enemies.push_back(chaser);
     chasers.push_back(chaser);
 }
 
-// Méthode pour mettre à jour toutes les entités
-void EntityManager::update(float deltaTime) {
+// M?thode pour mettre ? jour toutes les entit?s
+void EntityManager::update(float deltaTime, vector<vector<char>>& map) {
     for (auto chaser : chasers) {
         chaser->moveUpdate(players[0]);  // Exemple : le premier joueur
     }
@@ -80,6 +108,8 @@ void EntityManager::update(float deltaTime) {
     for (auto entity : entities) {
         entity->update(deltaTime);
     }
+
+    players[0]->handleInput(deltaTime, map);
 
     shared_ptr<Object> objToDestroy = nullptr;
 
@@ -99,14 +129,15 @@ void EntityManager::update(float deltaTime) {
     }
 }
 
-// Méthode pour dessiner toutes les entités
+// M?thode pour dessiner toutes les entit?s
 void EntityManager::draw(RenderWindow& window) {
-    for (auto entity : entities) {
+    for (auto entity : entities)
+    {
         entity->draw(window);
     }
 }
 
-// Méthode pour gérer les collisions
+// M?thode pour g?rer les collisions
 void EntityManager::collisions()
 {
     for (auto enemy : enemies)
@@ -118,21 +149,21 @@ void EntityManager::collisions()
     }
 }
 
-// Méthode pour supprimer une entité
-void EntityManager::removeEntity(Entity* entity) 
+// M?thode pour supprimer une entit?
+void EntityManager::removeEntity(Entity* entity)
 {
-    auto it = find_if(entities.begin(), entities.end(), [&](const shared_ptr<Entity>& e) 
+    auto it = find_if(entities.begin(), entities.end(), [&](const shared_ptr<Entity>& e)
         {
-        return e.get() == entity;  // Compare les adresses mémoire
+            return e.get() == entity;  // Compare les adresses m?moire
         });
-    if (it != entities.end()) 
+    if (it != entities.end())
     {
         entities.erase(it);
     }
 }
 
-// Méthode pour supprimer l'instance de EntityManager
-void EntityManager::deleteInstance() 
+// M?thode pour supprimer l'instance de EntityManager
+void EntityManager::deleteInstance()
 {
     delete instance;
     instance = nullptr;

@@ -1,9 +1,9 @@
 // Key.cpp
 #include "Key.h"
 
-Key::Key() : count(0)
+Key::Key(Texture t, Vector2f startPos) : Object(t, startPos), count(0)
 {
-    this->getSprite().setPosition(randomNumber(600, 1200), randomNumber(400, 800));
+
 }
 
 Key::~Key() {}

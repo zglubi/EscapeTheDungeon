@@ -2,10 +2,11 @@
 #include "Enemy.h"
 
 // Constructor
-Enemy::Enemy(const sf::Texture& t, int h, float s) : Entity(t), hp(h), hpMax(h), speed(s) {}
+Enemy::Enemy(const sf::Texture& t, Vector2f startPos, int h, float s) : Entity(t, startPos), hp(h), hpMax(h), speed(s) {}
 
 Enemy::Enemy(int h, float s)
-    : Entity(sf::Color::Red, sf::Vector2f(50, 75)), hp(h), hpMax(h), speed(s) {}
+    : Entity(sf::Color::Red, sf::Vector2f(25, 40)), hp(h), hpMax(h), speed(s) {
+}
 
 // Destructor
 Enemy::~Enemy() {}

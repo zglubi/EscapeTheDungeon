@@ -2,7 +2,7 @@
 
 Map::Map()
 {
-    // Charger le tileset à partir du fichier
+    // Charger le tileset ? partir du fichier
     if (!tileset.loadFromFile("Assets/Tileset/Tileset.png"))
     {
         cout << "tileset introuvable" << endl;
@@ -10,7 +10,7 @@ Map::Map()
 
     // Configurer le sprite du sol
     floorSprite.setTexture(tileset);
-    floorSprite.setTextureRect(IntRect(16, 64, 16, 16)); // Positionner la section du tileset utilisée
+    floorSprite.setTextureRect(IntRect(16, 64, 16, 16)); // Positionner la section du tileset utilis?e
     floorSprite.setScale(Vector2f(3, 3));
 
     wallSideSprite.setTexture(tileset);
@@ -18,12 +18,24 @@ Map::Map()
     wallSideSprite.setScale(Vector2f(3, 3));
 
     wallFrontSprite.setTexture(tileset);
-    wallFrontSprite.setTextureRect(IntRect(36, 131, 16, 20));
+    wallFrontSprite.setTextureRect(IntRect(36, 132, 16, 20));
     wallFrontSprite.setScale(Vector2f(3, 3));
 
     wallCornerSprite.setTexture(tileset);
-    wallCornerSprite.setTextureRect(IntRect(32, 131, 16, 20));
+    wallCornerSprite.setTextureRect(IntRect(32, 132, 16, 20));
     wallCornerSprite.setScale(Vector2f(3, 3));
+
+    wallCornerReversedSprite.setTexture(tileset);
+    wallCornerReversedSprite.setTextureRect(IntRect(59, 132, 16, 20));
+    wallCornerReversedSprite.setScale(Vector2f(3, 3));
+
+    wallCornerDownSprite.setTexture(tileset);
+    wallCornerDownSprite.setTextureRect(IntRect(32, 180, 16, 8));
+    wallCornerDownSprite.setScale(Vector2f(3, 3));
+
+    wallCornerDownReversedSprite.setTexture(tileset);
+    wallCornerDownReversedSprite.setTextureRect(IntRect(59, 180, 6, 8));
+    wallCornerDownReversedSprite.setScale(Vector2f(3, 3));
 
     doorSprite.setTexture(tileset);
     doorSprite.setTextureRect(IntRect(16, 238, 64, 32));
@@ -51,46 +63,47 @@ Map::Map()
 
     map =
     {
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'D', 'F', 'F','F', 'F', 'O', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'C', 'W','o', 'W', 'F', 'd', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'S', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'S', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'S', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'S', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'S', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'W', 'W','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'}
+        {'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'D', 'D', 'D', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
+        {'F', 'C', 'W', 'W', 'W', 'W', 'W','C', 'W', 'W','W', 'W', 'F', 'F', 'F', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W','W', 'W', 'W','W', 'W', 'W', 'R'},
+        {'F', 'S', 'F', 'F', 'F', 'F', 'F','S', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'F', 'F', 'C', 'o','C', 'W', 'W','R', 'F', 'C', 'W', 'W', 'W', 'W', 'r', 'F', 'F', 'C', 'W', 'W','W', 'W', 'R','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'F', 'F', 'S', 'F','S', 'F', 'F','S', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'r', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'C', 'W', 'r', 'F','c', 'W', 'W','r', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'C', 'W', 'W','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'S', 'F', 'F', 'F','C', 'W', 'W','W', 'W', 'r', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'S', 'F', 'F', 'F','S', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'S', 'F', 'F', 'F','S', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'C', 'W', 'W', 'W', 'r', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'S', 'F', 'F', 'F','S', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'C', 'W', 'W', 'W','r', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'C', 'W', 'W', 'W','W', 'W', 'R','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'r', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'C', 'W', 'W', 'd','W', 'W', 'r','F', 'F', 'F', 'F', 'F', 'F', 'c', 'W', 'W', 'W', 'W', 'W', 'W','W', 'W', 'r','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'S'},
+        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'S'},
+        {'F', 'W', 'W', 'W', 'W', 'W', 'W','W', 'W', 'W','W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W','W', 'W', 'W','W', 'W', 'W', 'r'}
     };
 }
 
 Map::~Map() {}
 
-vector<vector<char>> Map::getMap()
+vector<vector<char>>& Map::getMap()
 {
     return map; // Retourner la carte
 }
 
 void Map::draw(RenderWindow& window)
 {
-    // Dessiner la carte sur la fenêtre
-    for (int i = 0; i < map.size(); i++)
+    // Dessiner la carte sur la fen?tre
+    for (int i = 0; i < map.size() - 1; i++)
     {
-        for (int j = 0; j < map[0].size(); j++)
+        for (int j = 0; j < map[0].size() - 2; j++)
         {
-            floorSprite.setPosition(Vector2f(j * 48, i * 48)); // Positionner chaque sprite
+            floorSprite.setPosition(Vector2f(j * 48 + 48, i * 48 + 48)); // Positionner chaque sprite
             window.draw(floorSprite); // Dessiner le sprite
         }
     }
@@ -121,7 +134,7 @@ void Map::draw(RenderWindow& window)
             case 'O':
                 doorLeftSprite.setPosition(Vector2f(j * 48, i * 48));
                 doorOpenSprite.setPosition(Vector2f(j * 48 + 48, i * 48));
-                doorRightSprite.setPosition(Vector2f(j * 48 + 138, i * 48));
+                doorRightSprite.setPosition(Vector2f(j * 48 + 144, i * 48));
                 window.draw(doorLeftSprite);
                 window.draw(doorOpenSprite);
                 window.draw(doorRightSprite);
@@ -181,9 +194,27 @@ void Map::draw(RenderWindow& window)
                 }
                 else
                 {
-                    smallDoorSprite.setPosition(Vector2f(j * 48, i * 48 - 16));
+                    smallDoorOpenSprite.setPosition(Vector2f(j * 48, i * 48 - 16));
                     window.draw(smallDoorOpenSprite);
                 }
+                break;
+            case 'c':
+                wallCornerDownSprite.setPosition(Vector2f(j * 48, (i * 48) - 12));
+                wallFrontSprite.setPosition(Vector2f(j * 48, (i * 48) - 12));
+                window.draw(wallFrontSprite);
+                window.draw(wallCornerDownSprite);
+                break;
+            case 'R':
+                wallCornerReversedSprite.setPosition(Vector2f(j * 48, (i * 48) - 12));
+                window.draw(wallCornerReversedSprite);
+                break;
+            case 'r':
+                wallFrontSprite.setTextureRect(IntRect(56, 132, 4, 20));
+                wallCornerDownReversedSprite.setPosition(Vector2f(j * 48, (i * 48) - 12));
+                wallFrontSprite.setPosition(Vector2f(j * 48 + 3, (i * 48) - 12));
+                window.draw(wallFrontSprite);
+                window.draw(wallCornerDownReversedSprite);
+                wallFrontSprite.setTextureRect(IntRect(36, 132, 16, 20));
                 break;
             default:
                 break;

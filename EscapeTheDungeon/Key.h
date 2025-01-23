@@ -13,7 +13,7 @@ private:
     int count;
 
 public:
-    Key();
+    Key(Texture t, Vector2f startPos);
     ~Key();
 
     void interact(std::shared_ptr<Player> player) override;

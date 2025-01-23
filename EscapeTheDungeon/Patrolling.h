@@ -12,10 +12,12 @@ private:
     std::vector<char> patern;
     int paternNum;
     int paternPhase;
+    Vector2f scale;
+    int frame;
 
 public:
     // Constructor and Destructor
-    // Patrolling(const sf::Texture& t, int h, float s, std::vector<char> p);
+    Patrolling(const sf::Texture& t, Vector2f startPos, int h, float s, std::vector<char> p);
     Patrolling(int h, float s, std::vector<char> p);
     ~Patrolling();
 

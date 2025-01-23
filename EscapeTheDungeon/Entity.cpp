@@ -2,12 +2,13 @@
 #include "Entity.h"
 
 // Constructor
-Entity::Entity(const Texture& t) : texture(t)
+Entity::Entity(const Texture& t, Vector2f startPos) : texture(t)
 {
     sprite.setTexture(texture);
+    sprite.setPosition(startPos);
 }
 
-// Constructeur par défaut
+// Constructeur par d?faut
 Entity::Entity(const sf::Color& color, const sf::Vector2f& size)
 {
     sf::Image image;

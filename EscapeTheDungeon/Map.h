@@ -12,12 +12,16 @@ using namespace std;
 class Map
 {
 private:
-    Texture tileset;               // Texture pour le jeu de tuiles
+    Texture tileset;
+    Texture tileset1;
 
     Sprite floorSprite;             // Sprite pour le sol
     Sprite wallFrontSprite;        // Sprite pour les murs avant
-    Sprite wallSideSprite;         // Sprite pour les murs latéraux
+    Sprite wallSideSprite;         // Sprite pour les murs lat?raux
     Sprite wallCornerSprite;
+    Sprite wallCornerReversedSprite;
+    Sprite wallCornerDownSprite;
+    Sprite wallCornerDownReversedSprite;
     Sprite doorSprite;
     Sprite doorLeftSprite;
     Sprite doorRightSprite;
@@ -25,15 +29,15 @@ private:
     Sprite smallDoorOpenSprite;
     Sprite smallDoorSprite;
 
-    vector<vector<char>> map;      // Représentation de la carte
+    vector<vector<char>> map;      // Repr?sentation de la carte
 
 public:
     Map();                         // Constructeur
     ~Map();                        // Destructeur
 
-    vector<vector<char>> getMap(); // Accesseur pour obtenir la carte
+    vector<vector<char>>& getMap(); // Accesseur pour obtenir la carte
 
-    void draw(RenderWindow& window); // Fonction pour dessiner la carte dans la fenêtre
+    void draw(RenderWindow& window); // Fonction pour dessiner la carte dans la fen?tre
 };
 
 #endif

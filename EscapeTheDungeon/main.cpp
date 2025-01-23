@@ -16,34 +16,56 @@ Map dungeonMap;
 
 int main()
 {
-	Texture pText;
-	if (!pText.loadFromFile("p.png"))
-	{
-		cout << "Texture introuvable";
-		return -1;
-	}
-
+	manager->start(dungeonMap.getMap());
 	manager->createPlayer();
 
-	vector<char> patern = { 'U', 'U', 'U', 'R',
-		'R', 'D', 'D', 'D', 'L', 'L'};
+	vector<char> patern =
+	{
+		'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U',
+		'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R',
+		'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D',
+		'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L',
+	};
 
-	manager->createPatrolling(100, 50, patern);
+	vector<char> patern1 =
+	{
+		'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U',
+		'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R',
+		'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U',
+		'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R',
+		'D', 'D', 'D', 'D', 'D', 'D', 'D',
+		'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L',
+		'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D',
+		'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L',
+	};
 
-	manager->createChaser(100, 50);
+	vector<char> patern2 =
+	{
+		'U', 'U', 'U', 'U', 'U', 'U',
+		'L', 'L', 'L', 'L', 'L',
+		'D', 'D', 'D', 'D', 'D', 'D',
+		'R', 'R', 'R', 'R', 'R',
+	};
+
+	manager->createPatrolling(Vector2f(825, 800), 100, 100, patern);
+
+	manager->createPatrolling(Vector2f(500, 900), 100, 100, patern1);
+
+	manager->createPatrolling(Vector2f(300, 450), 100, 100, patern2);
+
+	//manager->createChaser(Vector2f(1300, 200), 100, 50);
 
 	Clock clock;
 	float deltaTime;
 
 	window.setFramerateLimit(60);
-	manager->start();
 	while (window.isOpen())
 	{
 		if (!manager->isPlayerAlive())
 			window.close();
-		
+
 		deltaTime = clock.restart().asSeconds();
-		
+
 		Event event;
 
 		while (window.pollEvent(event))
@@ -55,7 +77,7 @@ int main()
 		}
 
 
-		manager->update(deltaTime);
+		manager->update(deltaTime, dungeonMap.getMap());
 		manager->collisions();
 
 
@@ -65,7 +87,7 @@ int main()
 		manager->draw(window);
 		window.display();
 	}
-	
-	
+
+
 	return 0;
 }

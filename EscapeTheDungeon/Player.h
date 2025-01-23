@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
+#include "Map.h"
 
 class Player : public Entity
 {
@@ -15,11 +16,12 @@ private:
     Clock speedClock;
     bool clockActive;
     int keyNum;
+    Vector2f scale;
+    bool action;
 
 public:
     // Constructor and Destructor
-    Player(const sf::Texture& t);
-    Player();
+    Player(const sf::Texture& t, Vector2f startPos);
     ~Player();
 
     // Getters
@@ -36,7 +38,7 @@ public:
     void addKey();
 
     // Core Methods
-    void handleInput(float deltaTime);
+    void handleInput(float deltaTime, vector<vector<char>>& map);
     void update(float deltaTime) override;
     void draw(sf::RenderWindow& window) override;
     void resetClock();

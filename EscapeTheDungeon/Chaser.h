@@ -11,10 +11,12 @@ class Chaser : public Enemy
 private:
     int moveX;
     int moveY;
+    int frame;
+    Vector2f scale;
 
 public:
     // Constructor and Destructor
-    //Chaser(const sf::Texture& t, int h, float s);
+    Chaser(const sf::Texture& t, Vector2f startPos, int h, float s);
     Chaser(int h, float s);
     ~Chaser();
 

@@ -1,12 +1,12 @@
 #include "Object.h"
 
 // Constructeur
-Object::Object() : Entity(sf::Color::Blue, sf::Vector2f(25, 25))
+Object::Object(Texture t, Vector2f startPos) : Entity(t, startPos)
 {
-    // Initialisation si nécessaire
+    // Initialisation si n?cessaire
 }
 
 // Destructeur
 Object::~Object() {
-    // Libération des ressources si nécessaire
+    // Lib?ration des ressources si n?cessaire
 }

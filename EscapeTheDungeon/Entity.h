@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "RandomNumber.h"
+#include <iostream>
 using namespace sf;
 
 class Entity
@@ -14,9 +15,9 @@ private:
 
 public:
     // Constructor
-    Entity(const Texture& t);
+    Entity(const Texture& t, Vector2f startPos);
 
-    // Constructeur par défaut
+    // Constructeur par d?faut
     Entity(const sf::Color& color = sf::Color::Blue, const sf::Vector2f& size = sf::Vector2f(50.f, 75.f));
 
     // Destructor
