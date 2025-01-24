@@ -53,7 +53,11 @@ int main()
 
 	manager->createPatrolling(Vector2f(300, 450), 100, 100, patern2);
 
-	//manager->createChaser(Vector2f(1300, 200), 100, 200);
+	// manager->createChaser(Vector2f(1300, 200), 100, 200);
+
+	manager->createNinja(Vector2f(625, 200), 100, 800);
+
+	manager->createNinja(Vector2f(925, 800), 100, 800);
 
 	Clock clock;
 	float deltaTime;
@@ -96,7 +100,9 @@ int main()
 			}
 		}
 
+		window.clear();
 		manager->winScreen(window);
+		window.display();
 	}
 
 

@@ -10,6 +10,7 @@
 #include "Chaser.h"
 #include "Potion.h"
 #include "Key.h"
+#include "Ninja.h"
 
 using namespace sf;
 using namespace std;
@@ -27,8 +28,10 @@ private:
     vector<shared_ptr<Enemy>> enemies;      // Liste des ennemis
     Texture patrollingTexture;
     Texture chaserTexture;
+	Texture ninjaTexture;
     vector<shared_ptr<Patrolling>> patrollings;  // Liste des patrouilleurs
     vector<shared_ptr<Chaser>> chasers;     // Liste des chasers
+	vector<shared_ptr<Ninja>> ninjas;       // Liste des ninjas
 
     vector<shared_ptr<Object>> objects;
     Texture potionTexture;
@@ -36,7 +39,8 @@ private:
 
 	Texture winBgTexture;
 	Sprite winBg;
-
+	Texture loseBgTexture;
+	Sprite loseBg;
 
     // Constructeur priv? pour emp?cher la cr?ation d'instances ext?rieures
     EntityManager();
@@ -58,6 +62,8 @@ public:
 
     // M?thode pour cr?er un chaser
     void createChaser(Vector2f startPos, const int h, const float s);
+
+	void createNinja(Vector2f startPos, const int h, const float s);
 
     // M?thode pour mettre ? jour toutes les entit?s
     void update(float deltaTime, vector<vector<char>>& map);

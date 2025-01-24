@@ -145,6 +145,7 @@
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Ninja.cpp" />
     <ClCompile Include="Objet.cpp" />
     <ClCompile Include="Patrolling.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Ninja.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Patrolling.h" />
     <ClInclude Include="Player.h" />

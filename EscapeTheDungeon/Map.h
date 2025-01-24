@@ -28,6 +28,9 @@ private:
     Sprite doorOpenSprite;
     Sprite smallDoorOpenSprite;
     Sprite smallDoorSprite;
+	Sprite spikeSprite;
+	int spikeFrame;
+	bool spikeFrameUp;
 
     vector<vector<char>> map;      // Repr?sentation de la carte
 

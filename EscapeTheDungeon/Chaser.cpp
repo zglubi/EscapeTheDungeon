@@ -78,7 +78,17 @@ std::vector<sf::Vector2f> Chaser::findPath(Vector2f start, Vector2f goal, const 
                 continue;
 
             char nextTile = map[next.second][next.first];
-            bool canMove = (nextTile == 'F' || nextTile == 'R' || nextTile == 'r' || nextTile == 'o' || nextTile == 'O' || nextTile == 'S');
+            bool canMove = (nextTile == 'F' || nextTile == 'o' || nextTile == 'O');
+
+            // Allow moving to 'S', 'r', 'R' only if it's the player's tile and coming from the right
+            if (nextTile == 'S' || nextTile == 'r' || nextTile == 'R') {
+                if (next == goalTile && dir.first == -1) {
+                    canMove = true;
+                }
+                else {
+                    canMove = false;
+                }
+            }
 
             if (!canMove)
                 continue;
@@ -114,17 +124,27 @@ void Chaser::moveUpdate(std::shared_ptr<Player> player, const std::vector<std::v
 
     // Vérifier si la tuile du joueur est atteignable
     char goalTileType = map[goalTile.second][goalTile.first];
-    bool goalReachable = (goalTileType == 'F' || goalTileType == 'R' || goalTileType == 'r' || goalTileType == 'o' || goalTileType == 'O' || goalTileType == 'S');
+    bool goalReachable = (goalTileType == 'F' || goalTileType == 'o' || goalTileType == 'O');
+
+    // Allow moving to 'S', 'r', 'R' only if it's the player's tile and coming from the right
+    if (goalTileType == 'S' || goalTileType == 'r' || goalTileType == 'R') {
+        if (goalTile == toTile(start) && moveX == -1) {
+            goalReachable = true;
+        }
+        else {
+            goalReachable = false;
+        }
+    }
 
     if (goalReachable)
     {
         // Utiliser la dernière tuile atteignable
         goal = player->getSprite().getPosition();
-		lastReachablePosition = goal;
+        lastReachablePosition = goal;
     }
     else
     {
-		goal = lastReachablePosition;
+        goal = lastReachablePosition;
     }
 
     std::vector<Vector2f> path = findPath(start, goal, map);
@@ -135,7 +155,12 @@ void Chaser::moveUpdate(std::shared_ptr<Player> player, const std::vector<std::v
         moveX = (next.x - start.x > 0) ? 1 : (next.x - start.x < 0) ? -1 : 0;
         moveY = (next.y - start.y > 0) ? 1 : (next.y - start.y < 0) ? -1 : 0;
 
-        if (moveX != 0 && std::abs(next.x - start.x) >= 10)
+		if ((this->getSprite().getPosition().x - player->getSprite().getPosition().x < 50 && this->getSprite().getPosition().x - player->getSprite().getPosition().x > -50) &&
+            (this->getSprite().getPosition().y - player->getSprite().getPosition().y > 50 || this->getSprite().getPosition().y - player->getSprite().getPosition().y < -50))
+		{
+			this->getSprite().setScale(Vector2f(this->getSprite().getScale().x, this->getSprite().getScale().y));
+		}
+        else
         {
             this->getSprite().setScale(Vector2f(scale.x * moveX, this->getSprite().getScale().y));
         }

@@ -64,6 +64,13 @@ Map::Map()
     smallDoorOpenSprite.setTextureRect(IntRect(80, 238, 32, 32));
     smallDoorOpenSprite.setScale(Vector2f(2, 2));
 
+	spikeSprite.setTexture(tileset);
+	spikeSprite.setTextureRect(IntRect(16, 192, 16, 16));
+	spikeSprite.setScale(Vector2f(3, 3));
+
+	spikeFrame = 0;
+	spikeFrameUp = true;
+
     // Charger la carte depuis le fichier map.txt
     loadMap("Assets/Map/map.txt");
 }
@@ -91,6 +98,8 @@ void Map::draw(RenderWindow& window)
     {
         for (int j = 0; j < map[0].size(); j++)
         {
+            char tileChar = ' ';
+			int tile = 0;
             switch (map[i][j])
             {
             case 'S':
@@ -200,6 +209,110 @@ void Map::draw(RenderWindow& window)
                 window.draw(wallFrontSprite);
                 window.draw(wallCornerDownReversedSprite);
                 wallFrontSprite.setTextureRect(IntRect(36, 132, 16, 20));
+                break;
+            case '1':
+				if (spikeFrame / 100 > 3)
+					spikeFrameUp = false;
+                else if (spikeFrame < 0)
+					spikeFrameUp = true;
+
+                if (spikeFrameUp)
+                    spikeFrame++;
+                else
+                    spikeFrame--;
+
+				if (spikeFrame < 200 && spikeFrameUp)
+					spikeFrame += 10;
+				else if (spikeFrame < 200 && !spikeFrameUp)
+					spikeFrame -= 10;
+
+				spikeSprite.setTextureRect(IntRect(16 + 16 * static_cast<int>(spikeFrame / 100), 192, 16, 16));
+				spikeSprite.setPosition(Vector2f(j * 48, i * 48));
+				window.draw(spikeSprite);
+				tile = (spikeFrame / 100) + 1;
+                if (tile < 5 && tile > 0)
+                {
+                    tileChar = '0' + tile;
+                    map[i][j] = tileChar;
+                }
+                break;
+            case '2':
+                if (spikeFrame / 100 > 3)
+                    spikeFrameUp = false;
+                else if (spikeFrame < 0)
+                    spikeFrameUp = true;
+
+                if (spikeFrameUp)
+                    spikeFrame++;
+                else
+                    spikeFrame--;
+
+                if (spikeFrame < 200 && spikeFrameUp)
+                    spikeFrame += 10;
+                else if (spikeFrame < 200 && !spikeFrameUp)
+                    spikeFrame -= 10;
+
+                spikeSprite.setTextureRect(IntRect(16 + 16 * static_cast<int>(spikeFrame / 100), 192, 16, 16));
+                spikeSprite.setPosition(Vector2f(j * 48, i * 48));
+                window.draw(spikeSprite);
+                tile = (spikeFrame / 100) + 1;
+                if (tile < 5 && tile > 0)
+                {
+                    tileChar = '0' + tile;
+                    map[i][j] = tileChar;
+                }
+                break;
+            case '3':
+                if (spikeFrame / 100 > 3)
+                    spikeFrameUp = false;
+                else if (spikeFrame < 0)
+                    spikeFrameUp = true;
+
+                if (spikeFrameUp)
+                    spikeFrame++;
+                else
+                    spikeFrame--;
+
+                if (spikeFrame < 200 && spikeFrameUp)
+                    spikeFrame += 10;
+                else if (spikeFrame < 200 && !spikeFrameUp)
+                    spikeFrame -= 10;
+
+                spikeSprite.setTextureRect(IntRect(16 + 16 * static_cast<int>(spikeFrame / 100), 192, 16, 16));
+                spikeSprite.setPosition(Vector2f(j * 48, i * 48));
+                window.draw(spikeSprite);
+                tile = (spikeFrame / 100) + 1;
+                if (tile < 5 && tile > 0)
+                {
+                    tileChar = '0' + tile;
+                    map[i][j] = tileChar;
+                }
+                break;
+            case '4':
+                if (spikeFrame / 100 > 3)
+                    spikeFrameUp = false;
+                else if (spikeFrame < 0)
+                    spikeFrameUp = true;
+
+                if (spikeFrameUp)
+                    spikeFrame++;
+                else
+                    spikeFrame--;
+
+                if (spikeFrame < 200 && spikeFrameUp)
+                    spikeFrame += 10;
+                else if (spikeFrame < 200 && !spikeFrameUp)
+                    spikeFrame -= 10;
+
+                spikeSprite.setTextureRect(IntRect(16 + 16 * static_cast<int>(spikeFrame / 100), 192, 16, 16));
+                spikeSprite.setPosition(Vector2f(j * 48, i * 48));
+                window.draw(spikeSprite);
+                tile = (spikeFrame / 100) + 1;
+                if (tile < 5 && tile > 0)
+                {
+                    tileChar = '0' + tile;
+                    map[i][j] = tileChar;
+                }
                 break;
             default:
                 break;

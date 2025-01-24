@@ -33,7 +33,14 @@ EntityManager::EntityManager()
 		cout << "tileset introuvable" << endl;
 	}
 	winBg.setTexture(winBgTexture);
-	winBg.setScale(2.3, 2.8);
+	winBg.setPosition(-100, 0);
+
+	if (!loseBgTexture.loadFromFile("Assets/Background/lose.png"))
+	{
+		cout << "tileset introuvable" << endl;
+	}
+	loseBg.setTexture(loseBgTexture);
+	loseBg.setPosition(-100, 0);
 }
 
 // M?thode statique pour acc?der ? l'instance unique
@@ -89,7 +96,7 @@ bool EntityManager::isPlayerAlive(bool& isRunning)
 // M?thode pour cr?er un joueur
 void EntityManager::createPlayer(string path)
 {
-    shared_ptr<Player> player = make_shared<Player>(playerTexture, Vector2f(500, 800));
+    shared_ptr<Player> player = make_shared<Player>(playerTexture, Vector2f(650, 800));
     entities.push_back(player);
     players.push_back(player);
 }
@@ -111,10 +118,22 @@ void EntityManager::createChaser(Vector2f startPos, const int h, const float s) 
     chasers.push_back(chaser);
 }
 
+void EntityManager::createNinja(Vector2f startPos, const int h, const float s)
+{
+	shared_ptr<Ninja> ninja = make_shared<Ninja>(chaserTexture, startPos, h, s);
+	entities.push_back(ninja);
+	enemies.push_back(ninja);
+	ninjas.push_back(ninja);
+}
+
 // M?thode pour mettre ? jour toutes les entit?s
 void EntityManager::update(float deltaTime, vector<vector<char>>& map) {
     for (auto chaser : chasers) {
         chaser->moveUpdate(players[0], map);  // Exemple : le premier joueur
+    }
+    for (auto ninja : ninjas)
+    {
+		ninja->moveUpdate(players[0], map);
     }
     for (auto entity : entities) {
         entity->update(deltaTime);
@@ -151,7 +170,7 @@ void EntityManager::collisions()
     {
         if (enemy->getSprite().getGlobalBounds().intersects(players[0]->getSprite().getGlobalBounds()))
         {
-            players[0]->setHp(players[0]->getHp() - 0.5);
+            players[0]->setHp(players[0]->getHp() - 2.5);
         }
     }
 }
@@ -189,13 +208,11 @@ void EntityManager::winScreen(RenderWindow& window)
 {
     if (players[0]->getHp() > 0)
     {
-		window.clear();
         window.draw(winBg);
-		window.display();
     }
 
     else
     {
-        window.close();
+        window.draw(loseBg);
     }
 }

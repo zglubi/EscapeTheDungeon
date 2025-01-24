@@ -180,6 +180,16 @@ void Player::handleInput(float deltaTime, vector<vector<char>>& map)
         this->getSprite().setScale(Vector2f(-scale.x, scale.y));
         action = true;
     }
+
+	Vector2f sectionUL = { this->getSprite().getGlobalBounds().left / 48, this->getSprite().getGlobalBounds().top / 48 };
+	Vector2f sectionUR = { (this->getSprite().getGlobalBounds().left + this->getSprite().getGlobalBounds().width) / 48, this->getSprite().getGlobalBounds().top / 48 };
+	Vector2f sectionDL = { this->getSprite().getGlobalBounds().left / 48, (this->getSprite().getGlobalBounds().top + this->getSprite().getGlobalBounds().height) / 48 };
+	Vector2f sectionDR = { (this->getSprite().getGlobalBounds().left + this->getSprite().getGlobalBounds().width) / 48, (this->getSprite().getGlobalBounds().top + this->getSprite().getGlobalBounds().height) / 48 };
+
+	if (map[sectionUL.y][sectionUL.x] == '4' || map[sectionUR.y][sectionUR.x] == '4' || map[sectionDL.y][sectionDL.x] == '4' || map[sectionDR.y][sectionDR.x] == '4')
+	{
+		this->setHp(this->getHp() - 10);
+	}
 }
 
 // Update method
