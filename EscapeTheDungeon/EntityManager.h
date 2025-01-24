@@ -83,6 +83,8 @@ public:
 	void winCheck(bool& isRunning);
 
 	void winScreen(RenderWindow& window);
+
+    void clear();
 };
 
 #endif // ENTITYMANAGER_H#pragma once

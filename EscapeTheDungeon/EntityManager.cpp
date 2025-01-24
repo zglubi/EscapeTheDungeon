@@ -216,3 +216,13 @@ void EntityManager::winScreen(RenderWindow& window)
         window.draw(loseBg);
     }
 }
+
+void EntityManager::clear()
+{
+	players.clear();
+	patrollings.clear();
+	chasers.clear();
+	ninjas.clear();
+	objects.clear();
+	entities.clear();
+}
