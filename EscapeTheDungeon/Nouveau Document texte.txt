@@ -1,0 +1,1 @@
+il faut atteindre la porte finale du donjon en evitant les monstres et pieges. pour pouvoir ouvrir cette porte ou meme toutes les portes fermées il faut une clé que l'on peut récupérer. les potions nous font accélérer pendant 5 secondes. il y a 3 trois types d'ennemis. ceux qui patrouillent, ceux qui nous chassent et ceux qui nous courent dessus quan on approche. 
