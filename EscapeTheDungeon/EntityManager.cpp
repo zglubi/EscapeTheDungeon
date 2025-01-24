@@ -116,15 +116,11 @@ void EntityManager::update(float deltaTime, vector<vector<char>>& map) {
     for (auto chaser : chasers) {
         chaser->moveUpdate(players[0], map);  // Exemple : le premier joueur
     }
-
     for (auto entity : entities) {
         entity->update(deltaTime);
     }
-
     players[0]->handleInput(deltaTime, map);
-
     shared_ptr<Object> objToDestroy = nullptr;
-
     for (auto object : objects)
     {
         if (object->getSprite().getGlobalBounds().intersects(players[0]->getSprite().getGlobalBounds()))
@@ -133,7 +129,6 @@ void EntityManager::update(float deltaTime, vector<vector<char>>& map) {
             objToDestroy = object;
         }
     }
-
     if (objToDestroy)
     {
         entities.erase(std::remove(entities.begin(), entities.end(), objToDestroy), entities.end());
@@ -183,8 +178,6 @@ void EntityManager::deleteInstance()
 
 void EntityManager::winCheck(bool& isRunning)
 {
-	cout << players[0]->getSprite().getPosition().y << endl;
-    
     if (players[0]->getSprite().getPosition().y < 60)
     {
 		cout << "You win!" << endl;

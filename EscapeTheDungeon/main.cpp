@@ -53,7 +53,7 @@ int main()
 
 	manager->createPatrolling(Vector2f(300, 450), 100, 100, patern2);
 
-	manager->createChaser(Vector2f(1300, 200), 100, 200);
+	//manager->createChaser(Vector2f(1300, 200), 100, 200);
 
 	Clock clock;
 	float deltaTime;
@@ -64,13 +64,9 @@ int main()
 	{
 		while (isRunning)
 		{
-
 			manager->isPlayerAlive(isRunning);
-
 			deltaTime = clock.restart().asSeconds();
-
 			Event event;
-
 			while (window.pollEvent(event))
 			{
 				if (event.type == Event::Closed)
@@ -79,17 +75,14 @@ int main()
 				}
 			}
 
-
 			manager->update(deltaTime, dungeonMap.getMap());
 			manager->collisions();
-
 
 			// Drawage toi meme tu sais
 			window.clear();
 			dungeonMap.draw(window);
 			manager->draw(window);
 			window.display();
-
 			manager->winCheck(isRunning);
 		}
 

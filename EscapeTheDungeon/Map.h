@@ -38,6 +38,7 @@ public:
     vector<vector<char>>& getMap(); // Accesseur pour obtenir la carte
 
     void draw(RenderWindow& window); // Fonction pour dessiner la carte dans la fen?tre
+    void loadMap(const string& filename);
 };
 
 #endif

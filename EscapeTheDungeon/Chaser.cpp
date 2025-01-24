@@ -78,8 +78,7 @@ std::vector<sf::Vector2f> Chaser::findPath(Vector2f start, Vector2f goal, const 
                 continue;
 
             char nextTile = map[next.second][next.first];
-            bool canMove = (nextTile == 'F' || nextTile == 'R' || nextTile == 'r' || nextTile == 'o' ||
-                (nextTile == 'S' && dir.first == -1 && goalTile == next));
+            bool canMove = (nextTile == 'F' || nextTile == 'R' || nextTile == 'r' || nextTile == 'o' || nextTile == 'O' || nextTile == 'S');
 
             if (!canMove)
                 continue;
@@ -111,6 +110,23 @@ void Chaser::moveUpdate(std::shared_ptr<Player> player, const std::vector<std::v
 {
     Vector2f start = this->getSprite().getPosition();
     Vector2f goal = player->getSprite().getPosition();
+    auto goalTile = toTile(goal);
+
+    // Vérifier si la tuile du joueur est atteignable
+    char goalTileType = map[goalTile.second][goalTile.first];
+    bool goalReachable = (goalTileType == 'F' || goalTileType == 'R' || goalTileType == 'r' || goalTileType == 'o' || goalTileType == 'O' || goalTileType == 'S');
+
+    if (goalReachable)
+    {
+        // Utiliser la dernière tuile atteignable
+        goal = player->getSprite().getPosition();
+		lastReachablePosition = goal;
+    }
+    else
+    {
+		goal = lastReachablePosition;
+    }
+
     std::vector<Vector2f> path = findPath(start, goal, map);
 
     if (!path.empty())
@@ -136,4 +152,3 @@ void Chaser::update(float deltaTime)
 
     this->getSprite().move(this->getSpeed() * moveX * deltaTime, this->getSpeed() * moveY * deltaTime);
 }
-

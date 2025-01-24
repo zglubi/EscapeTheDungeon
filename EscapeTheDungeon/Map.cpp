@@ -1,8 +1,11 @@
+// Map.cpp
 #include "Map.h"
+#include <fstream>
+#include <iostream>
 
 Map::Map()
 {
-    // Charger le tileset ? partir du fichier
+    // Charger le tileset à partir du fichier
     if (!tileset.loadFromFile("Assets/Tileset/Tileset.png"))
     {
         cout << "tileset introuvable" << endl;
@@ -10,7 +13,7 @@ Map::Map()
 
     // Configurer le sprite du sol
     floorSprite.setTexture(tileset);
-    floorSprite.setTextureRect(IntRect(16, 64, 16, 16)); // Positionner la section du tileset utilis?e
+    floorSprite.setTextureRect(IntRect(16, 64, 16, 16)); // Positionner la section du tileset utilisée
     floorSprite.setScale(Vector2f(3, 3));
 
     wallSideSprite.setTexture(tileset);
@@ -61,32 +64,8 @@ Map::Map()
     smallDoorOpenSprite.setTextureRect(IntRect(80, 238, 32, 32));
     smallDoorOpenSprite.setScale(Vector2f(2, 2));
 
-    map =
-    {
-        {'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'D', 'D', 'D', 'D', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F'},
-        {'F', 'C', 'W', 'W', 'W', 'W', 'W','C', 'W', 'W','W', 'W', 'D', 'D', 'D', 'D', 'W', 'W', 'W', 'W', 'W', 'W', 'W','W', 'W', 'W','W', 'W', 'W', 'R'},
-        {'F', 'S', 'F', 'F', 'F', 'F', 'F','S', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'F', 'F', 'C', 'o','C', 'W', 'W','R', 'F', 'C', 'W', 'W', 'W', 'W', 'r', 'F', 'F', 'C', 'W', 'W','W', 'W', 'R','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'F', 'F', 'S', 'F','S', 'F', 'F','S', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'r', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'C', 'W', 'r', 'F','c', 'W', 'W','r', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'C', 'W', 'W','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'S', 'F', 'F', 'F','C', 'W', 'W','W', 'W', 'r', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'S', 'F', 'F', 'F','S', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'S', 'F', 'F', 'F','S', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'C', 'W', 'W', 'W', 'r', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'S', 'F', 'F', 'F','S', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'C', 'W', 'W', 'W','r', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'C', 'W', 'W', 'W','W', 'W', 'R','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'r', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'F', 'F', 'F', 'S', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'S','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'C', 'W', 'W', 'd','W', 'W', 'r','F', 'F', 'F', 'F', 'F', 'F', 'c', 'W', 'W', 'W', 'W', 'W', 'W','W', 'W', 'r','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'S'},
-        {'F', 'S', 'F', 'S', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F','F', 'F', 'F','F', 'F', 'F', 'S'},
-        {'F', 'W', 'W', 'W', 'W', 'W', 'W','W', 'W', 'W','W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W','W', 'W', 'W','W', 'W', 'W', 'r'}
-    };
+    // Charger la carte depuis le fichier map.txt
+    loadMap("Assets/Map/map.txt");
 }
 
 Map::~Map() {}
@@ -98,7 +77,7 @@ vector<vector<char>>& Map::getMap()
 
 void Map::draw(RenderWindow& window)
 {
-    // Dessiner la carte sur la fen?tre
+    // Dessiner la carte sur la fenêtre
     for (int i = 0; i < map.size() - 1; i++)
     {
         for (int j = 0; j < map[0].size() - 2; j++)
@@ -227,4 +206,28 @@ void Map::draw(RenderWindow& window)
             }
         }
     }
+}
+
+void Map::loadMap(const string& filename)
+{
+    ifstream file(filename);
+    if (!file.is_open())
+    {
+        cout << "Impossible d'ouvrir le fichier " << filename << endl;
+        return;
+    }
+
+    map.clear();
+    string line;
+    while (getline(file, line))
+    {
+        vector<char> row;
+        for (char& tile : line)
+        {
+            row.push_back(tile);
+        }
+        map.push_back(row);
+    }
+
+    file.close();
 }

@@ -1,3 +1,4 @@
+// Chaser.h
 #ifndef CHASER_H
 #define CHASER_H
 
@@ -13,6 +14,7 @@ private:
     int moveY;
     int frame;
     Vector2f scale;
+    Vector2f lastReachablePosition;
 
     std::vector<Vector2f> findPath(Vector2f start, Vector2f goal, const std::vector<std::vector<char>>& map);
 
